@@ -2,10 +2,7 @@
 //#include <std_msgs/Int64.h> //
 //#include <std_msgs/Bool.h>
 //#include <geometry_msgs/Point.h> //20170414
-#include<omp.h>
 #include<opencv2/opencv.hpp>
-#include<iostream>
-#include<stdlib.h>
 
 using namespace cv;
 using namespace std;
