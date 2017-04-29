@@ -2,17 +2,21 @@
 //#include <std_msgs/Int64.h> //
 //#include <std_msgs/Bool.h>
 //#include <geometry_msgs/Point.h> //20170414
-#include<omp.h>
-#include<opencv2/opencv.hpp>
-#include<iostream>
-#include<stdlib.h>
+#include"opencv2/opencv.hpp"
 
 using namespace cv;
 using namespace std;
 #define pi 3.14159265358979323846 //20170420
-short int old_area = 0, now_area = 0, resis_area;
-short int old_i, now_i, resis_i, old_2i, now_2i;
-double center_x, center_y;
+short int old_area = 0;
+short int now_area = 0;
+short int resis_area;
+short int old_i;
+short int now_i;
+short int resis_i;
+short int old_2i;
+short int now_2i;
+double center_x;
+double center_y;
 bool x;
 int main(int argc, char** argv)
 {
@@ -22,16 +26,18 @@ int main(int argc, char** argv)
 	vector<vector<Point> > contours, contours_2;
 	vector<Vec4i> hierarchy, hierarchy_2;
 	Point2f center, center_2;   //onject_center, red_center;
-	float radius, radius_2;
+	float radius;
+	float radius_2;
 
 	Mat hsv_element_dilate = getStructuringElement(MORPH_DILATE, Size(15, 15)); //20170420
 	Mat hsv_element_erode = getStructuringElement(MORPH_ERODE, Size(3, 3));//20170420
 	Mat center_element_dilate = getStructuringElement(MORPH_RECT, Size(10, 10)); //20170420
 	Mat center_element_erode = getStructuringElement(MORPH_RECT, Size(7, 7));//20170420    
 	Point2f vec_center_minus_red, vec_horizontal;  //20170420
-	double arc_theta, theta;//20170420
+	double arc_theta;
+	double theta;
 
-							//ros::init(argc, argv, "middlePoint_node");
+	//ros::init(argc, argv, "middlePoint_node");
 							//ros::NodeHandle nh; //20170414
 							//geometry_msgs::Point msg_xy_angle; //20170414
 							//ros::Publisher pub_xy_angle = nh.advertise<geometry_msgs::Point>("xy_angle", 1000); //20170409    
@@ -61,12 +67,12 @@ int main(int argc, char** argv)
 		src_HSV = src.clone(); ////20170420*************** ����ƻs�@�Msrc�X�� ,output���ӷ�(�O�����m)�M���P
 		cvtColor(src_copy, src_copy, CV_BGR2GRAY);
 		cvtColor(src_HSV, src_HSV, CV_BGR2HSV);//20170420
-											   //threshold(src_copy, src_copy, 70, 255, THRESH_BINARY_INV); //20170420
-											   //threshold(src_copy, src_copy, 100, 255, THRESH_OTSU);      //20170420
+		//threshold(src_copy, src_copy, 70, 255, THRESH_BINARY_INV); //20170420
+		//threshold(src_copy, src_copy, 100, 255, THRESH_OTSU);      //20170420
 		inRange(src_copy, 0, 89, src_copy);//20170420
-										   //erode(src_copy, src_copy, Mat());//20170420
-										   //dilate(src_copy, src_copy, Mat());//20170420   
-										   /////imshow("src_copy", src_copy);//binanry image //20170420
+		//erode(src_copy, src_copy, Mat());//20170420
+		//dilate(src_copy, src_copy, Mat());//20170420   
+		/////imshow("src_copy", src_copy);//binanry image //20170420
 		inRange(src_HSV, Scalar(153, 121, 91), Scalar(192, 255, 255), hsv_threshold);//20170420
 		dilate(hsv_threshold, hsv_threshold, hsv_element_dilate);//20170420
 		erode(hsv_threshold, hsv_threshold, hsv_element_erode);//20170420
@@ -146,7 +152,7 @@ int main(int argc, char** argv)
 				}
 				vec_center_minus_red = center_2 - center;//20170420
 				vec_horizontal = Point(300, 240) - Point(200, 240);//20170420
-																   ///////////////////�|(��)��!!!!!!!!!!! 20170420
+				///////////////////�|(��)��!!!!!!!!!!! 20170420
 				arc_theta = acos(vec_center_minus_red.dot(vec_horizontal) / (pow(vec_center_minus_red.dot(vec_center_minus_red), 0.5) * pow(vec_horizontal.dot(vec_horizontal), 0.5)));
 				theta = (arc_theta * 360) / (2 * pi);//20170420
 
@@ -168,23 +174,24 @@ int main(int argc, char** argv)
 					theta = 360 - theta;
 					//cout << "arc_theta:  " << theta << endl;
 				}
-				if (theta > 180) theta -= 360;
+				// ReSharper disable once CppExpressionStatementsWithoudSideEffects
+				if (theta > 180) 360;
 				line(src, center, center_2, Scalar(250, 50, 120), 5);//20170420                                
-																	 /*msg_xy_angle.x = center.x;
-																	 msg_xy_angle.y = center.y;
-																	 msg_xy_angle.z = theta;*/
+				/*msg_xy_angle.x = center.x;
+				msg_xy_angle.y = center.y;
+				msg_xy_angle.z = theta;*/
 				if ((resis_area - old_area > 200) && (num == 0) && (resis_area != 0))
 				{
 					//cout << "Too high" << "  old_area  " << old_area << "�@resis_area�@" << resis_area << " delta  " << resis_area - old_area << endl; //20170414
 					//putText(src, "Too high", Point(20, 50), 2, 1, Scalar(0, 0, 255));
-					num = 1;
+					// ReSharper disable once CppExpressionStatementsWithoudSideEffects
+					1;
 				}
 				else if ((old_area - resis_area > 200) && (num == 0) && (resis_area != 0))
-				{
-					//cout << "Too low" << "  old_area  " << old_area << "�@resis_area�@" << resis_area << " delta  " << old_area - resis_area << endl; //20170414
-					//putText(src, "Too low", Point(20, 50), 2, 1, Scalar(0, 0, 255));
-					num = 1;
-				}
+				//cout << "Too low" << "  old_area  " << old_area << "�@resis_area�@" << resis_area << " delta  " << old_area - resis_area << endl; //20170414
+				//putText(src, "Too low", Point(20, 50), 2, 1, Scalar(0, 0, 255));
+				// ReSharper disable once CppExpressionStatementsWithoudSideEffects
+					1;
 				else
 				{
 				}
@@ -200,7 +207,7 @@ int main(int argc, char** argv)
 		imshow("src", src);
 		////imshow("inRange_HSV", hsv_threshold);   //20170420     
 		////imshow("add:  ", src_add_mask);//20170420
-		if (waitKey(16) == 27) { break; }
+		if (waitKey(16) == 27) break;
 	}
 	return 0;
 
