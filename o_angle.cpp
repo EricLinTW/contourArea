@@ -179,14 +179,15 @@ int main(int argc, char** argv)
 				// ReSharper disable once CppExpressionStatementsWithoudSideEffects
 				if ((resis_area - old_area > 200) && (num == 0) && (resis_area != 0))
 				{
-					1;
+					num = 1;
 				}
 				else if ((old_area - resis_area > 200) && (num == 0) && (resis_area != 0))
 				{
-				//cout << "Too low" << "  old_area  " << old_area << "�@resis_area�@" << resis_area << " delta  " << old_area - resis_area << endl; //20170414
-				//putText(src, "Too low", Point(20, 50), 2, 1, Scalar(0, 0, 255));
-				// ReSharper disable once CppExpressionStatementsWithoudSideEffects
+					//cout << "Too low" << "  old_area  " << old_area << "�@resis_area�@" << resis_area << " delta  " << old_area - resis_area << endl; //20170414
+					//putText(src, "Too low", Point(20, 50), 2, 1, Scalar(0, 0, 255));
+					// ReSharper disable once CppExpressionStatementsWithoudSideEffects
 					num = 1;
+				}
 				else
 				{
 				}
