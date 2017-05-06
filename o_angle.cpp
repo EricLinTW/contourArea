@@ -16,7 +16,11 @@ double center_y;
 bool x;
 int main(int argc, char** argv)
 {
+<<<<<<< Updated upstream
 
+=======
+  
+>>>>>>> Stashed changes
 	VideoCapture cap(0);
 	Mat src, src_copy;
 	vector<vector<Point> > contours, contours_2;
