@@ -1,6 +1,6 @@
-//#include <ros/ros.h>
-//#include <geometry_msgs/Twist.h>
-
+#include <ros/ros.h>
+#include <geometry_msgs/Twist.h>
+////#include <std_msgs/Bool.h>
 #include<iostream>
 #include<opencv2/opencv.hpp>
 using namespace std;
@@ -21,10 +21,10 @@ int main(int argc, char** argv)
     bool ifExist = false;
     
 
-    //ros::init(argc, argv, "middlePoint_node");
-    //ros::NodeHandle nh;
-    //geometry_msgs::Twist msg_xy;
-    //ros::Publisher pub_msg_xy = nh.advertise<geometry_msgs::Twist>("mid_xy", 1000);
+    ros::init(argc, argv, "middlePoint_node");
+    ros::NodeHandle nh;
+    geometry_msgs::Twist msg_xy;
+    ros::Publisher pub_msg_xy = nh.advertise<geometry_msgs::Twist>("mid_xy", 1000);
 
     ////std_msgs::Bool msg_if_image;
 
@@ -67,16 +67,16 @@ int main(int argc, char** argv)
                         //cout << "center:  " << center << endl;                       
                         //contours[0][0].x = -contours[0][0].x;
                         //contours[0][0].y = -contours[0][0].y;
-                        //msg_xy.linear.x = center.x; msg_xy.linear.y = center.y;
-                        //msg_xy.angular.x = double(320.0); msg_xy.angular.y = double(240.0);
+                        msg_xy.linear.x = center.x; msg_xy.linear.y = center.y;
+                        msg_xy.angular.x = double(320.0); msg_xy.angular.y = double(240.0);
 
                     }
                     else
                     {
                         //cout <<contours[0][0].x << contours[0][0].y << endl;
                         //center = -center;
-                        //msg_xy.angular.x = contours[0][0].x; msg_xy.angular.y = contours[0][0].y;
-                        //msg_xy.linear.x = double(320.0); msg_xy.linear.y = double(240.0);
+                        msg_xy.angular.x = contours[0][0].x; msg_xy.angular.y = contours[0][0].y;
+                        msg_xy.linear.x = double(320.0); msg_xy.linear.y = double(240.0);
                         line(src, Point(contours[0][0].x, contours[0][0].y), Point(contours[0][0].x, contours[0][0].y), Scalar(0, 255, 0), 5);
                     }
                     line(src, center, center, Scalar(0, 0, 255), 10);
@@ -87,7 +87,7 @@ int main(int argc, char** argv)
             }
             
         }
-        //pub_msg_xy.publish(msg_xy);
+        pub_msg_xy.publish(msg_xy);
         imshow("src", src);
         //imshow("threshold_contour", threshold);
         writer.write(src);
