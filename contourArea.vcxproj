@@ -128,6 +128,7 @@
   <ItemGroup>
     <ClCompile Include="o_angle.cpp" />
     <ClCompile Include="v_point.cpp" />
+    <ClCompile Include="v_point_pid.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
