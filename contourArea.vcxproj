@@ -127,6 +127,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="o_angle.cpp" />
+    <ClCompile Include="v4l2.cpp" />
     <ClCompile Include="v_point.cpp" />
     <ClCompile Include="v_point_pid.cpp" />
   </ItemGroup>
