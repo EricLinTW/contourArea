@@ -180,18 +180,18 @@ int main(int argc, char** argv)
 				/*msg_xy_angle.x = center.x;
 				msg_xy_angle.y = center.y;
 				msg_xy_angle.z = theta;*/
+				// ReSharper disable once CppExpressionStatementsWithoudSideEffects
 				if ((resis_area - old_area > 200) && (num == 0) && (resis_area != 0))
 				{
-					//cout << "Too high" << "  old_area  " << old_area << "�@resis_area�@" << resis_area << " delta  " << resis_area - old_area << endl; //20170414
-					//putText(src, "Too high", Point(20, 50), 2, 1, Scalar(0, 0, 255));
-					// ReSharper disable once CppExpressionStatementsWithoudSideEffects
-					1;
+					num = 1;
 				}
 				else if ((old_area - resis_area > 200) && (num == 0) && (resis_area != 0))
-				//cout << "Too low" << "  old_area  " << old_area << "�@resis_area�@" << resis_area << " delta  " << old_area - resis_area << endl; //20170414
-				//putText(src, "Too low", Point(20, 50), 2, 1, Scalar(0, 0, 255));
-				// ReSharper disable once CppExpressionStatementsWithoudSideEffects
-					1;
+				{
+					//cout << "Too low" << "  old_area  " << old_area << "�@resis_area�@" << resis_area << " delta  " << old_area - resis_area << endl; //20170414
+					//putText(src, "Too low", Point(20, 50), 2, 1, Scalar(0, 0, 255));
+					// ReSharper disable once CppExpressionStatementsWithoudSideEffects
+					num = 1;
+				}
 				else
 				{
 				}
