@@ -6,7 +6,6 @@
 using namespace std;
 using namespace cv;
 
-hellow word!!
 int main(int argc, char* argv[])
 {
     VideoCapture cap(1);
